@@ -1,20 +1,28 @@
 <head>
-  <link href="http://vjs.zencdn.net/5.9.2/video-js.css" rel="stylesheet">
-
-  <!-- If you'd like to support IE8 -->
-  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link href="http://vjs.zencdn.net/5.9.2/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css"></link>
+    <!-- If you'd like to support IE8 -->
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="http://vjs.zencdn.net/5.9.2/video.js"></script>
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  <video id="my-video" class="video-js" controls preload="auto" width="auto" height="auto"
-  poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-    <source src="http://techslides.com/demos/sample-videos/small.mp4" type='video/mp4'>
-    <source src="http://techslides.com/demos/sample-videos/small.webm" type='video/webm'>
-    <p class="vjs-no-js">
-      To view this video please enable JavaScript, and consider upgrading to a web browser that
-      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-    </p>
-  </video>
+    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" poster="http://i.telegraph.co.uk/multimedia/archive/01953/gull_1953105b.jpg" data-setup="{}">
+        <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'/>
+        <source src="http://vjs.zencdn.net/v/oceans.webm" type='video/webm'/>
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
+    <div class="video-overlay">
+        <div class="video-overlay-banner">
+            Die Möwe
+        </div>
+    </div>
+    
 
-  <script src="http://vjs.zencdn.net/5.9.2/video.js"></script>
 </body>
