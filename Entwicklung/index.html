@@ -1,43 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<!-- JQuery-->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-		<!-- Bootstrap -->
-		<!-- Latest compiled and minified CSS -->
-		<!-- Configurations -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link href="http://vjs.zencdn.net/5.9.2/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css"></link>
+    <!-- If you'd like to support IE8 -->
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="http://vjs.zencdn.net/5.9.2/video.js"></script>
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-		<script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
-		<script>
-			
-		</script>
-
-
-		<title>Hold To Record</title>
-	</head>
-
-	<body>
-		<div class="container">
-		 	<h1>Welcome to holdtorecord.</h1>
-		 	<video height="180" width="300" id="ourvideo">
-         		<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4">
-        		<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv">
-         		<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm">
-        	</video>
-			<div id="footnote"></div>
-		</div>
+<body>
+    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" poster="http://i.telegraph.co.uk/multimedia/archive/01953/gull_1953105b.jpg" data-setup="{}">
+        <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
+        <source src="http://vjs.zencdn.net/v/oceans.webm" type='video/webm' />
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
+    <div class="video-overlay">
+        <div class="video-overlay-banner">
+            <div id="middlecircle"></div>
+            <i class="material-icons md-48">fast_rewind</i>
+            <i class="material-icons md-48">play_arrow</i>
+            <i class="material-icons md-48">fast_forward</i>
+        </div>
+        <div class="under-the-banner">
+            <i class="material-icons md-48">fiber_manual_record</i>
+        </div>
+        
+    </div>
 
 
-
-		<script>
-
-		</script>
-	</body>
-</html>
+</body>

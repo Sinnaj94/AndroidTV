@@ -29,12 +29,42 @@ body {
 }
 
 .video-overlay-banner {
-    
-    
-    box-shadow: 7px 7px 20px black;
+    box-shadow: 3px 3px 7px rgba(10, 10, 10, .3);
     position: absolute;
     text-align: center;
-    top: 60%;
-    left: 50%;
+    top: 70%;
+    left: 20%;
+    width: 60%;
+    height: 10%;
     background-color: #00695C
+}
+
+.under-the-banner {
+    position: absolute;
+    text-align: center;
+    top: 85%;
+    left: 20%;
+    width: 60%;
+    height: 10%;
+}
+
+.material-icons.md-48 {
+
+    font-size: 70px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top:15px
+}
+
+#middlecircle {
+    position: absolute;
+    left: 50%;
+
+    transform: translate(-50%,-15%);
+    width: 140px;
+    height: 140px;
+
+    border-radius: 70px;
+
+    background-color: rgba(255, 255, 255, 0.3);
 }
