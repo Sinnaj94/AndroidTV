@@ -1,5 +1,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <link href="http://vjs.zencdn.net/5.9.2/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"></link>
     <!-- If you'd like to support IE8 -->
@@ -11,26 +13,30 @@
 </head>
 
 <body>
-    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" poster="http://i.telegraph.co.uk/multimedia/archive/01953/gull_1953105b.jpg" data-setup="{}">
-        <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
-        <source src="http://vjs.zencdn.net/v/oceans.webm" type='video/webm' />
-        <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a web browser that
-            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-        </p>
-    </video>
-    <div class="video-overlay">
-        <div class="video-overlay-banner">
-            <div id="middlecircle"></div>
-            <i class="material-icons md-48">fast_rewind</i>
-            <i class="material-icons md-48">play_arrow</i>
-            <i class="material-icons md-48">fast_forward</i>
+    <script src="scripts/script.js"></script>
+    <div id="target">
+        <video id="video" class="video-js">
+            <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
+            <source src="http://vjs.zencdn.net/v/oceans.webm" type='video/webm' />
+        </video>
+
+        <div class="video-overlay">
+            <div id="timeline">
+                <div id="passedtime"></div>
+            </div>
+            <div class="video-overlay-banner">
+
+
+
+                <img src="img/Kreis.png" id="Kreis">
+                <div id="wrapper">
+                    <div class="fontcontainer">
+                        <i class="material-icons md-48">replay_5</i>
+                        <i class="material-icons md-48" id="play_pause_key">play_arrow</i>
+                        <i class="material-icons md-48">forward_5</i>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="under-the-banner">
-            <i class="material-icons md-48">fiber_manual_record</i>
-        </div>
-        
     </div>
-
-
 </body>
