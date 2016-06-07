@@ -71,6 +71,29 @@ body {
     
 }
 
+#passedtimetext{
+    position:absolute;
+    top:-50%;
+    left:3%;
+}
+
+#fulllengthtext{
+    position:absolute;
+    top:-50%;
+    left:97%;
+    transform: translate(-50%, 0);
+}
+
+
+
+
+.texts{
+    position:absolute;
+    top:70%;  
+    left:20%;
+    
+}
+
 #wrapper {
     height:100%;
     display: flex;
