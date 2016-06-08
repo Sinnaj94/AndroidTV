@@ -8,23 +8,27 @@ $(document).ready(function () {
 
     currentIndex = 1;
     easingSpeed = '100';
-    $("#video").on(
-    "timeupdate", 
-    function(event){
-      onTrackedVideoFrame(this.currentTime, this.duration);
-    });
+
+    $("#video")
+        .on(
+            "timeupdate"
+            , function (event) {
+                onTrackedVideoFrame(this.currentTime, this.duration);
+            });
 });
 
-function onTrackedVideoFrame(currentTime, length){
-    var percent = 100*currentTime/length + "%";
+function onTrackedVideoFrame(currentTime, length) {
+    $("#passedtimetext").text(currentTime);
+    $("#fulllengthtext").text(length);
+    var percent = 100 * currentTime / length + "%";
     $("#passedtime")
         .animate({
-                width: percent
-                
-            }, {
-                duration: 100
-                , easing: 'swing'
-            });
+            width: percent
+
+        }, {
+            duration: 100
+            , easing: 'swing'
+        });
 }
 
 
@@ -47,6 +51,25 @@ function testing(a) {
     }
 }
 
+function animateControls(text) {
+    $("#command-overlay").text(text)
+    $("#command-overlay")
+        .animate({
+            opacity: "1"
+
+        }, {
+            duration: 500
+
+        })
+
+    .animate({
+        opacity: "0"
+    }, {
+        duration: 1000
+    });
+
+}
+
 function easeIn() {
     $(".video-overlay")
         .animate({
@@ -59,7 +82,7 @@ function goLeft() {
         $("#Kreis")
             .animate({
                 left: "-=15%"
-                
+
             }, {
                 duration: easingSpeed
                 , easing: 'swing'
@@ -92,6 +115,7 @@ function easeCircle(percent) {
 
 function onEnter() {
     if (currentIndex == 0) {
+        animateControls("replay_5");
         skip(-5);
     } else if (currentIndex == 1) {
         var video = document.getElementById("video");
@@ -101,6 +125,7 @@ function onEnter() {
             pause();
         }
     } else if (currentIndex == 2) {
+        animateControls("forward_5");
         skip(5);
     }
 

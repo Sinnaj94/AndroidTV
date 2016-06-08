@@ -15,7 +15,6 @@ body {
     margin: 0px;
 }
 
-
 .video-overlay {
     font-family: roboto;
     font-size: 50px;
@@ -56,46 +55,56 @@ body {
     margin-right: 4%;
 }
 
-.fontcontainer{
-    height:70px;
+.material-icons.md-big{
+    position:fixed;
+    
+    font-size: 200px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    opacity:0;
 }
 
-#timeline{
+.fontcontainer {
+    height: 70px;
+}
+
+#timeline {
     box-shadow: 3px 3px 7px rgba(10, 10, 10, .3);
-    position:absolute;
+    position: absolute;
     background-color: rgba(225, 225, 225, .5);
     top: 79%;
     left: 20%;
     width: 60%;
     height: 1%;
+}
+
+.passedtext {
+    font-size: 20px;
+    top: 0%;
+    margin:1%;
     
 }
 
-#passedtimetext{
-    position:absolute;
-    top:-50%;
-    left:3%;
-}
-
-#fulllengthtext{
-    position:absolute;
-    top:-50%;
-    left:97%;
-    transform: translate(-50%, 0);
-}
-
-
-
-
-.texts{
-    position:absolute;
-    top:70%;  
-    left:20%;
+#passedtimetext {
+    position: absolute;
     
+}
+
+#fulllengthtext {
+    position: absolute;
+    right:0%;
+    width:auto;
+}
+
+.texts {
+    position: absolute;
+    top: 70%;
+    left: 20%;
 }
 
 #wrapper {
-    height:100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -109,9 +118,9 @@ body {
     position: absolute;
 }
 
-#passedtime{
-    height:100%;
-    width:0%;
-    background-color:white;
+#passedtime {
+    height: 100%;
+    width: 0%;
+    background-color: white;
     opacity: 1;
 }
