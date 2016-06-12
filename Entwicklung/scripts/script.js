@@ -28,11 +28,19 @@ $(document).ready(function () {
 
             }
         );
+    $("#video")
+        .on(
+            "progress"
+            , function (event) {
+                console.log(this.buffered);
+
+            }
+        );
 
 });
 
 function onTrackedVideoFrame(currentTime, length) {
-
+    console.log(buffered);
     $("#passedtimetext").text(getFormat(currentTime));
     var percent = 100 * currentTime / length + "%";
     $("#passedtime")
@@ -88,12 +96,15 @@ function testing(a) {
     easeVideo(1);
     if (a == 37) {
         goLeft();
-        
+
     } else if (a == 39) {
         goRight();
 
     } else if (a == 13) {
         onEnter();
+    } else if (a == 32) {
+        playPause();
+
     }
     timedOut();
 }
@@ -128,7 +139,7 @@ function timedOut() {
 
     timer = setTimeout(function () {
         easeVideo(0)
-    }, 7000);
+    }, 4000);
 
 
 }
@@ -182,12 +193,7 @@ function onEnter() {
         animateControls("replay_5");
         skip(-5);
     } else if (currentIndex == 1) {
-        var video = document.getElementById("video");
-        if (video.paused) {
-            play();
-        } else {
-            pause();
-        }
+        playPause();
     } else if (currentIndex == 2) {
         animateControls("forward_5");
         skip(5);
@@ -195,25 +201,44 @@ function onEnter() {
 
 }
 
+function playPause() {
+    var video = document.getElementById("video");
+    if (video.paused) {
+        play();
+    } else {
+        pause();
+    }
+}
+
 function play() {
     $("#play_pause_key").text("pause");
     var video = document.getElementById("video");
     video.play();
-    easeVideo(0);
+    easeVideo(0, 300);
 }
 
-function easeVideo(newopacity) {
-    $(".video-overlay")
-        .animate({
-            opacity: newopacity
-        })
+function easeVideo(newopacity, neweasingspeed) {
+    if (neweasingspeed == undefined) {
+        neweasingspeed = 500;
+    }
+
+    if ($(".video-overlay").css('opacity') != newopacity) {
+        $(".video-overlay")
+            .animate({
+                opacity: newopacity
+            }, {
+                duration: neweasingspeed
+                , easing: 'swing'
+            });
+    }
+
 }
 
 function pause() {
     $("#play_pause_key").text("play_arrow");
     var video = document.getElementById("video");
     video.pause();
-    easeVideo(1);
+
 }
 
 function skip(value) {
