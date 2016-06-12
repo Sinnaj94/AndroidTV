@@ -1,7 +1,7 @@
 var currentIndex;
 var easingSpeed;
 var timer = null;
-
+var fullLength = 0;
 
 $(document).ready(function () {
 
@@ -32,15 +32,32 @@ $(document).ready(function () {
         .on(
             "progress"
             , function (event) {
-                console.log(this.buffered);
+                if (this.buffered.length > 0) {
+                    onBufferedVideoFrame(this.buffered.end(0), this.duration);
+
+                }
 
             }
         );
 
 });
 
+function onBufferedVideoFrame(bufferedTime, length) {
+
+    var percent = 100 * bufferedTime / length + "%";
+
+    $("#bufferedtime")
+        .animate({
+            width: percent
+
+        }, {
+            duration: 100
+            , easing: 'swing'
+        });
+}
+
 function onTrackedVideoFrame(currentTime, length) {
-    console.log(buffered);
+
     $("#passedtimetext").text(getFormat(currentTime));
     var percent = 100 * currentTime / length + "%";
     $("#passedtime")
