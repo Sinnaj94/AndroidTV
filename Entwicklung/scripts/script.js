@@ -1,4 +1,5 @@
-var currentIndex;
+var currentIndexLeftRight;
+var currentIndexUpDown;
 var easingSpeed;
 var timer = null;
 var fullLength = 0;
@@ -7,7 +8,8 @@ $(document).ready(function () {
 
     $("#play_pause_key").text("play_arrow");
 
-    currentIndex = 1;
+    currentIndexLeftRight = 1;
+    currentIndexUpDown = 0;
 
     easingSpeed = 250;
     $("#video")
@@ -175,7 +177,7 @@ function easeIn() {
 }
 
 function goLeft() {
-    if (currentIndex > 0) {
+    if (currentIndexLeftRight > 0) {
 
         $("#Kreis")
             .animate({
@@ -185,14 +187,14 @@ function goLeft() {
                 duration: easingSpeed
                 , easing: 'swing'
             });
-        currentIndex--;
+        currentIndexLeftRight--;
     }
 
 }
 
 function goRight() {
 
-    if (currentIndex < 2) {
+    if (currentIndexLeftRight < 2) {
         $("#Kreis")
             .animate({
                 left: "+=16%"
@@ -201,27 +203,84 @@ function goRight() {
                 duration: easingSpeed
                 , easing: 'swing'
             });
-        currentIndex++;
+        currentIndexLeftRight++;
     }
 
 
 
 }
 
+var percentDown = 25;
+
+function hideTitle() {
+    $("#thetitle").animate({
+        opacity: "0"
+    },{
+        duration: easingSpeed
+        , easing: 'swing'
+    })
+}
+function showTitle() {
+    $("#thetitle").animate({
+        opacity: "1"
+    },{
+        duration: easingSpeed
+        , easing: 'swing'
+    })
+}
 function goUP() {
-    if(currentIndex == 1){
-        $("#centerPanel").animation({
-            top: "+=10%"
+    if(currentIndexLeftRight == 1 && currentIndexUpDown > -2){
+        $("#playPanel").animate({
+            top: "-="+percentDown+"%"
         },{
             duration: easingSpeed
             , easing: 'swing'
         })
+        $("#recordPanel").animate({
+            top: "-="+percentDown+"%"
+        },{
+            duration: easingSpeed
+            , easing: 'swing'
+        })
+        $("#sharePanel").animate({
+            top: "-="+percentDown+"%"
+        },{
+            duration: easingSpeed
+            , easing: 'swing'
+        })
+        currentIndexUpDown --;
+        if(currentIndexUpDown < 0){
+            hideTitle();
+        }
     }
 }
 
 
 function goDown() {
-
+    if(currentIndexLeftRight == 1 && currentIndexUpDown < 0){
+        $("#playPanel").animate({
+            top: "+="+percentDown+"%"
+        },{
+            duration: easingSpeed
+            , easing: 'swing'
+        })
+        $("#recordPanel").animate({
+            top: "+="+percentDown+"%"
+        },{
+            duration: easingSpeed
+            , easing: 'swing'
+        })
+        $("#sharePanel").animate({
+            top: "+="+percentDown+"%"
+        },{
+            duration: easingSpeed
+            , easing: 'swing'
+        })
+        currentIndexUpDown ++;
+        if(currentIndexUpDown  == 0){
+            showTitle();
+        }
+    }
 }
 
 function easeCircle(percent) {
@@ -229,12 +288,12 @@ function easeCircle(percent) {
 }
 
 function onEnter() {
-    if (currentIndex == 0) {
+    if (currentIndexLeftRight == 0) {
         animateControls("replay_5");
         skip(-5);
-    } else if (currentIndex == 1) {
+    } else if (currentIndexLeftRight == 1) {
         playPause();
-    } else if (currentIndex == 2) {
+    } else if (currentIndexLeftRight == 2) {
         animateControls("forward_5");
         skip(5);
     }
