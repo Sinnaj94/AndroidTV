@@ -123,7 +123,7 @@ function testing(a) {
         playPause();
 
     }
-    timedOut();
+    //timedOut();
 }
 
 function animateControls(text) {
@@ -229,7 +229,7 @@ function playPause() {
 }
 
 function play() {
-    $("#play_pause_key").text("pause");
+    $("#playPanel").find("i").first().text("pause");
     var video = document.getElementById("video");
     video.play();
     easeVideo(0, 300);
@@ -253,7 +253,7 @@ function easeVideo(newopacity, neweasingspeed) {
 }
 
 function pause() {
-    $("#play_pause_key").text("play_arrow");
+    $("#playPanel").find("i").first().text("play_arrow");
     var video = document.getElementById("video");
     video.pause();
 
