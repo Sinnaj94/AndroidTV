@@ -3,6 +3,9 @@ var currentIndexUpDown;
 var easingSpeed;
 var timer = null;
 var fullLength = 0;
+var hintIsOpen  = false;
+var timeOutForRecordHint  = null;
+var timeOutForShareHint  = null;
 var last = 0;
 var recordKey = 80;
 var startRecordingTime = undefined;
@@ -10,6 +13,7 @@ var endRecordingTime = undefined;
 var recorded = false;
 $(document).ready(function () {
 
+    $(".video-overlay-hint-share").hide()
     $("#play_pause_key").text("play_arrow");
 
     currentIndexLeftRight = 1;
@@ -202,11 +206,87 @@ function testing(a) {
     //timedOut();
 }
 
+function showHintRecordDelayed() {
+
+    if(timeOutForRecordHint == null){
+        timeOutForRecordHint = window.setTimeout(function(){
+            timeOutForRecordHint = null;
+            $(".video-overlay-hint") .animate({
+                top: "+=10%"
+
+            }, {
+                duration: easingSpeed
+                , queue: false
+
+            },function(){
+                hintIsOpen = true;
+            });
+        },2000)
+    }
+}
+function hideHintRecord(){
+
+    clearTimeout(timeOutForRecordHint);
+    timeOutForRecordHint = null;
+    $(".video-overlay-hint") .animate({
+        top: "70%"
+
+    }, {
+        duration: easingSpeed
+        , queue: false
+
+    });
+
+
+}
+
+
+function showHintShareDelayed() {
+
+    if(timeOutForShareHint == null){
+        timeOutForShareHint = window.setTimeout(function(){
+            timeOutForShareHint = null;
+            $(".video-overlay-hint-share").show();
+            $(".video-overlay-hint-share").css({
+                top:"100%"
+            });
+            $(".video-overlay-hint-share") .animate({
+                top: "+=5%"
+
+            }, {
+                duration: easingSpeed
+                , queue: false
+
+            });
+        },2000)
+    }
+}
+function hideHintShare(){
+
+    clearTimeout(timeOutForShareHint);
+    timeOutForShareHint = null;
+    $(".video-overlay-hint-share") .animate({
+        top: "70%"
+
+    }, {
+        duration: easingSpeed
+        , queue: false,
+        complete: function(){
+            $(".video-overlay-hint-share").hide()
+        }
+
+    });
+
+
+}
+
 
 function decideExpansion() {
     if (currentIndexUpDown == -2) {
 
 
+        $("#previewPanel").fadeIn();
+        
         // increase the 500 to larger values to lengthen the duration of the fadeout 
         // and/or fadein
         $('#Kreis').fadeOut(100, function () {
@@ -272,6 +352,9 @@ function decideExpansion() {
 
     } else if (currentIndexUpDown == -1) {
         if (last == -2) {
+
+            $("#previewPanel").fadeOut();
+
             $('#Kreis').fadeOut(100, function () {
                 $('#Kreis').attr("src", "./img/Kreis.png");
                 $('#Kreis').fadeIn(400);
@@ -459,10 +542,22 @@ function goUP() {
         currentIndexUpDown++;
         if (currentIndexUpDown == 0) {
             showTitle();
-
-
-
         }
+
+
+        if(currentIndexUpDown == -1 ){
+            showHintRecordDelayed();
+        }else {
+            hideHintRecord();
+        }
+
+        if(currentIndexUpDown == -2 ){
+            showHintShareDelayed();
+        }else {
+            hideHintShare();
+        }
+
+
         animateBackgroundColors();
         decideExpansion();
     }
@@ -493,6 +588,18 @@ function goDown() {
         currentIndexUpDown--;
         if (currentIndexUpDown < 0) {
             hideTitle();
+        }
+
+        if(currentIndexUpDown == -1 ){
+            showHintRecordDelayed();
+        }else {
+            hideHintRecord();
+        }
+
+        if(currentIndexUpDown == -2 ){
+            showHintShareDelayed();
+        }else {
+            hideHintShare();
         }
 
 
