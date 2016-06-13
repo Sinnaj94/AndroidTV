@@ -121,7 +121,7 @@ function testing(a) {
 
     } else if (a == 38) {
         goUP();
-        
+
     } else if (a == 40) {
         goDown();
 
@@ -134,8 +134,8 @@ function testing(a) {
     //timedOut();
 }
 
-function decideExpansion(){
-    
+function decideExpansion() {
+
 }
 
 function animateControls(text) {
@@ -255,9 +255,13 @@ function goUP() {
             duration: easingSpeed
             , easing: 'swing'
         })
+
         currentIndexUpDown++;
         if (currentIndexUpDown == 0) {
             showTitle();
+
+            animateBackgroundColors();
+
         }
     }
 }
@@ -283,10 +287,32 @@ function goDown() {
             duration: easingSpeed
             , easing: 'swing'
         })
+
         currentIndexUpDown--;
         if (currentIndexUpDown < 0) {
             hideTitle();
         }
+
+
+        animateBackgroundColors();
+
+
+    }
+}
+
+function animateBackgroundColors() {
+    if (currentIndexUpDown == 0) {
+        $(".video-overlay-banner").animate({
+            backgroundColor: "#00695C"
+        })
+    } else if (currentIndexUpDown == -1) {
+        $(".video-overlay-banner").animate({
+            backgroundColor: "#f24336"
+        })
+    } else if (currentIndexUpDown == -2) {
+        $(".video-overlay-banner").animate({
+            backgroundColor: "blue"
+        })
     }
 }
 
