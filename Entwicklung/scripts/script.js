@@ -9,6 +9,7 @@ var timeOutForShareHint  = null;
 var last = 0;
 $(document).ready(function () {
 
+    $(".video-overlay-hint-share").hide()
     $("#play_pause_key").text("play_arrow");
 
     currentIndexLeftRight = 1;
@@ -149,7 +150,7 @@ function showHintRecordDelayed() {
                 duration: easingSpeed
                 , queue: false
 
-            }).then(function(){
+            },function(){
                 hintIsOpen = true;
             });
         },2000)
@@ -178,15 +179,16 @@ function showHintShareDelayed() {
         timeOutForShareHint = window.setTimeout(function(){
             timeOutForShareHint = null;
             $(".video-overlay-hint-share").show();
+            $(".video-overlay-hint-share").css({
+                top:"100%"
+            });
             $(".video-overlay-hint-share") .animate({
-                top: "+=10%"
+                top: "+=5%"
 
             }, {
                 duration: easingSpeed
                 , queue: false
 
-            }).then(function(){
-                hintIsOpen = true;
             });
         },2000)
     }
@@ -200,10 +202,11 @@ function hideHintShare(){
 
     }, {
         duration: easingSpeed
-        , queue: false
+        , queue: false,
+        complete: function(){
+            $(".video-overlay-hint-share").hide()
+        }
 
-    }).then(function(){
-        $(".video-overlay-hint-share").hide()
     });
 
 
