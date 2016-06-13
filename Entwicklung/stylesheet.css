@@ -72,6 +72,7 @@ body {
     background-color: #3341FF;
 }
 .hint-text {
+    font-weight: bold;
     transform: translate(0, -20%);
     font-size: 0.3em;
 }
@@ -160,6 +161,13 @@ body {
     left:50%;
     transform:translate(-55%,0);
     top:114%;
+    z-index: 999;
+    position: absolute
+}
+#previewPanel {
+    left:78%;
+    transform:translate(-50%,0);
+    top:64%;
     z-index: 999;
     position: absolute
 }

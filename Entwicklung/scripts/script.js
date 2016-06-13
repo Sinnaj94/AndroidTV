@@ -217,6 +217,8 @@ function decideExpansion() {
     if (currentIndexUpDown == -2) {
 
 
+        $("#previewPanel").fadeIn();
+        
         // increase the 500 to larger values to lengthen the duration of the fadeout 
         // and/or fadein
         $('#Kreis').fadeOut(100, function () {
@@ -282,6 +284,9 @@ function decideExpansion() {
 
     } else if (currentIndexUpDown == -1) {
         if (last == -2) {
+
+            $("#previewPanel").fadeOut();
+
             $('#Kreis').fadeOut(100, function () {
                 $('#Kreis').attr("src", "./img/Kreis.png");
                 $('#Kreis').fadeIn(400);
