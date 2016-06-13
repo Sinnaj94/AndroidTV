@@ -26,7 +26,7 @@ $(document).ready(function () {
             , function (event) {
                 $("#passedtimetext").text(getFormat(this.currentTime));
                 $("#fulllengthtext").text(getFormat(this.duration));
-                timedOut();
+
 
             }
         );
@@ -119,10 +119,10 @@ function testing(a) {
     } else if (a == 39) {
         goRight();
 
-    }else if (a == 38) {
+    } else if (a == 38) {
         goUP();
 
-    }else if (a == 40) {
+    } else if (a == 40) {
         goDown();
 
     } else if (a == 13) {
@@ -132,6 +132,10 @@ function testing(a) {
 
     }
     //timedOut();
+}
+
+function decideExpansion() {
+
 }
 
 function animateControls(text) {
@@ -215,105 +219,117 @@ var percentDown = 25;
 function hideTitle() {
     $("#thetitle").animate({
         opacity: "0"
-    },{
+    }, {
         duration: easingSpeed
         , easing: 'swing'
     })
 }
+
 function showTitle() {
     $("#thetitle").animate({
         opacity: "1"
-    },{
+    }, {
         duration: easingSpeed
         , easing: 'swing'
     })
 }
+
 function goUP() {
-    if(currentIndexLeftRight == 1 && currentIndexUpDown > -2){
+
+    if (currentIndexLeftRight == 1 && currentIndexUpDown < 0) {
         $("#playPanel").animate({
-            top: "-="+percentDown+"%"
-        },{
+            top: "+=" + percentDown + "%"
+        }, {
             duration: easingSpeed
             , easing: 'swing'
         })
         $("#recordPanel").animate({
-            top: "-="+percentDown+"%"
-        },{
+            top: "+=" + percentDown + "%"
+        }, {
             duration: easingSpeed
             , easing: 'swing'
         })
         $("#sharePanel").animate({
-            top: "-="+percentDown+"%"
-        },{
+            top: "+=" + percentDown + "%"
+        }, {
             duration: easingSpeed
             , easing: 'swing'
         })
-        currentIndexUpDown --;
-        animateBackgroundColors();
-        if(currentIndexUpDown < 0){
-            hideTitle();
+
+        currentIndexUpDown++;
+        if (currentIndexUpDown == 0) {
+            showTitle();
+
+
+
         }
+        animateBackgroundColors();
     }
 }
 
 
 function goDown() {
-    if(currentIndexLeftRight == 1 && currentIndexUpDown < 0){
+    if (currentIndexLeftRight == 1 && currentIndexUpDown > -2) {
         $("#playPanel").animate({
-            top: "+="+percentDown+"%"
-        },{
+            top: "-=" + percentDown + "%"
+        }, {
             duration: easingSpeed
             , easing: 'swing'
         })
         $("#recordPanel").animate({
-            top: "+="+percentDown+"%"
-        },{
+            top: "-=" + percentDown + "%"
+        }, {
             duration: easingSpeed
             , easing: 'swing'
         })
         $("#sharePanel").animate({
-            top: "+="+percentDown+"%"
-        },{
+            top: "-=" + percentDown + "%"
+        }, {
             duration: easingSpeed
             , easing: 'swing'
         })
-        currentIndexUpDown ++;
+
+        currentIndexUpDown--;
+        if (currentIndexUpDown < 0) {
+            hideTitle();
+        }
+
 
         animateBackgroundColors();
-        if(currentIndexUpDown  == 0){
-            showTitle();
-        }
+
+
     }
 }
 
-function animateBackgroundColors(){
-    if(currentIndexUpDown ==  0){
+function animateBackgroundColors() {
+    if (currentIndexUpDown == 0) {
         $(".video-overlay-banner").animate({
             backgroundColor: "#00695C"
         })
-    }else if(currentIndexUpDown ==  -1){
+    } else if (currentIndexUpDown == -1) {
         $(".video-overlay-banner").animate({
             backgroundColor: "#f24336"
         })
-    }else if(currentIndexUpDown ==  -2){
+    } else if (currentIndexUpDown == -2) {
         $(".video-overlay-banner").animate({
             backgroundColor: "blue"
         })
     }
 }
+
 function easeCircle(percent) {
 
 }
 
 function onEnter() {
     if (currentIndexLeftRight == 0) {
-        animateControls("replay_5");
-        skip(-5);
+        animateControls("replay_10");
+        skip(-10);
     } else if (currentIndexLeftRight == 1) {
         playPause();
     } else if (currentIndexLeftRight == 2) {
-        animateControls("forward_5");
-        skip(5);
+        animateControls("forward_10");
+        skip(10);
     }
 
 }
