@@ -81,6 +81,7 @@ body {
 }
 
 #timeline {
+    opacity: 1;
     box-shadow: 3px 3px 7px rgba(10, 10, 10, .3);
     position: absolute;
     background-color: rgba(225, 225, 225, .3);
