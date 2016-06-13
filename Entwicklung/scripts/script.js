@@ -3,9 +3,9 @@ var currentIndexUpDown;
 var easingSpeed;
 var timer = null;
 var fullLength = 0;
-var hintIsOpen  = false;
-var timeOutForRecordHint  = null;
-var timeOutForShareHint  = null;
+var hintIsOpen = false;
+var timeOutForRecordHint = null;
+var timeOutForShareHint = null;
 var last = 0;
 var recordKey = 80;
 var startRecordingTime = undefined;
@@ -53,16 +53,16 @@ $(document).ready(function () {
         .on(
             "timeupdate"
             , function (event) {
-                if(recorded){
-                    
+                if (recorded) {
+
                 }
             }
         );
 
 });
 
-function repeatRecorded(){
-    if(document.getElementById(video).currentTime >= endRecordingTime){
+function repeatRecorded() {
+    if (document.getElementById(video).currentTime >= endRecordingTime) {
         document.getElementById(video).currentTime = startRecordingTime;
     }
 }
@@ -165,18 +165,18 @@ function startToRecord(keycode) {
 
     console.log("Started Recording at " + getFormat(startRecordingTime));
     play();
-    
+
 
 }
 
 function endRecording() {
-    pause();
+
     endRecordingTime = document.getElementById("video").currentTime;
 
     console.log("Stopped Recording at " + getFormat(endRecordingTime));
-    if(endRecordingTime - startRecordingTime>= 1){
+    if (endRecordingTime - startRecordingTime >= 1) {
         recorded = true;
-    }else{
+    } else {
         startRecordingTime = undefined;
         endRecordingTime = undefined;
     }
@@ -184,7 +184,10 @@ function endRecording() {
 }
 
 function testing(a) {
-    easeVideo(1);
+    if (a != recordKey) {
+        easeVideo(1);
+
+    }
     if (a == 37) {
         goLeft();
 
@@ -208,27 +211,28 @@ function testing(a) {
 
 function showHintRecordDelayed() {
 
-    if(timeOutForRecordHint == null){
-        timeOutForRecordHint = window.setTimeout(function(){
+    if (timeOutForRecordHint == null) {
+        timeOutForRecordHint = window.setTimeout(function () {
             timeOutForRecordHint = null;
-            $(".video-overlay-hint") .animate({
+            $(".video-overlay-hint").animate({
                 top: "+=10%"
 
             }, {
                 duration: easingSpeed
                 , queue: false
 
-            },function(){
+            }, function () {
                 hintIsOpen = true;
             });
-        },2000)
+        }, 2000)
     }
 }
-function hideHintRecord(){
+
+function hideHintRecord() {
 
     clearTimeout(timeOutForRecordHint);
     timeOutForRecordHint = null;
-    $(".video-overlay-hint") .animate({
+    $(".video-overlay-hint").animate({
         top: "70%"
 
     }, {
@@ -243,14 +247,14 @@ function hideHintRecord(){
 
 function showHintShareDelayed() {
 
-    if(timeOutForShareHint == null){
-        timeOutForShareHint = window.setTimeout(function(){
+    if (timeOutForShareHint == null) {
+        timeOutForShareHint = window.setTimeout(function () {
             timeOutForShareHint = null;
             $(".video-overlay-hint-share").show();
             $(".video-overlay-hint-share").css({
-                top:"100%"
+                top: "100%"
             });
-            $(".video-overlay-hint-share") .animate({
+            $(".video-overlay-hint-share").animate({
                 top: "+=5%"
 
             }, {
@@ -258,20 +262,21 @@ function showHintShareDelayed() {
                 , queue: false
 
             });
-        },2000)
+        }, 2000)
     }
 }
-function hideHintShare(){
+
+function hideHintShare() {
 
     clearTimeout(timeOutForShareHint);
     timeOutForShareHint = null;
-    $(".video-overlay-hint-share") .animate({
+    $(".video-overlay-hint-share").animate({
         top: "70%"
 
     }, {
         duration: easingSpeed
-        , queue: false,
-        complete: function(){
+        , queue: false
+        , complete: function () {
             $(".video-overlay-hint-share").hide()
         }
 
@@ -286,7 +291,7 @@ function decideExpansion() {
 
 
         $("#previewPanel").fadeIn();
-        
+
         // increase the 500 to larger values to lengthen the duration of the fadeout 
         // and/or fadein
         $('#Kreis').fadeOut(100, function () {
@@ -545,15 +550,15 @@ function goUP() {
         }
 
 
-        if(currentIndexUpDown == -1 ){
+        if (currentIndexUpDown == -1) {
             showHintRecordDelayed();
-        }else {
+        } else {
             hideHintRecord();
         }
 
-        if(currentIndexUpDown == -2 ){
+        if (currentIndexUpDown == -2) {
             showHintShareDelayed();
-        }else {
+        } else {
             hideHintShare();
         }
 
@@ -590,15 +595,15 @@ function goDown() {
             hideTitle();
         }
 
-        if(currentIndexUpDown == -1 ){
+        if (currentIndexUpDown == -1) {
             showHintRecordDelayed();
-        }else {
+        } else {
             hideHintRecord();
         }
 
-        if(currentIndexUpDown == -2 ){
+        if (currentIndexUpDown == -2) {
             showHintShareDelayed();
-        }else {
+        } else {
             hideHintShare();
         }
 
