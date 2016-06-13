@@ -3,7 +3,7 @@ var currentIndexUpDown;
 var easingSpeed;
 var timer = null;
 var fullLength = 0;
-
+var last = 0;
 $(document).ready(function () {
 
     $("#play_pause_key").text("play_arrow");
@@ -134,8 +134,70 @@ function testing(a) {
     //timedOut();
 }
 
-function decideExpansion() {
 
+function decideExpansion() {
+    if (currentIndexUpDown == -2) {
+        $("#timeline")
+            .animate({
+                opacity: "0"
+
+            }, {
+                duration: 300
+                , queue: false
+            });
+        $(".video-overlay-banner")
+            .animate({
+                top: "55%"
+                , height: "50%"
+
+            }, {
+                duration: 300
+                , queue: false
+
+            });
+        $("#passedandlengthtext")
+            .animate({
+                opacity: "0"
+
+            }, {
+                duration: 300
+                , queue: false
+            });
+
+    } else if (currentIndexUpDown == -1) {
+        if (last == -2) {
+            $("#timeline")
+                .animate({
+                    opacity: "1"
+
+                }, {
+                    duration: 300
+
+
+
+                });
+            $(".video-overlay-banner")
+                .animate({
+                    top: "60%"
+                    , height: "20%"
+
+                }, {
+                    duration: 300
+                    , queue: false
+
+                });
+            $("#passedandlengthtext")
+                .animate({
+                    opacity: "1"
+
+                }, {
+                    duration: 300
+                    , queue: false
+                });
+        }
+
+    }
+    last = currentIndexUpDown;
 }
 
 function animateControls(text) {
@@ -264,6 +326,7 @@ function goUP() {
 
         }
         animateBackgroundColors();
+        decideExpansion();
     }
 }
 
@@ -296,7 +359,7 @@ function goDown() {
 
 
         animateBackgroundColors();
-
+        decideExpansion();
 
     }
 }
