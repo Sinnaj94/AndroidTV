@@ -92,21 +92,21 @@ body {
 #playPanel {
     left:50%;
     transform:translate(-50%,0);
-    top:62%;
+    top:63%;
     position: absolute
 }
 
 #replayPanel {
-    left:35%;
+    left:34%;
     transform:translate(-50%,0);
-    top:62%;
+    top:63%;
     position: absolute
 }
 
 #forwardPanel {
-    left:65%;
+    left:66%;
     transform:translate(-50%,0);
-    top:62%;
+    top:63%;
     position: absolute
 }
 
