@@ -4,6 +4,10 @@ var easingSpeed;
 var timer = null;
 var fullLength = 0;
 var last = 0;
+var recordKey = 80;
+var startRecordingTime = undefined;
+var endRecordingTime = undefined;
+var recorded = false;
 $(document).ready(function () {
 
     $("#play_pause_key").text("play_arrow");
@@ -41,8 +45,23 @@ $(document).ready(function () {
 
             }
         );
+    $("#video")
+        .on(
+            "timeupdate"
+            , function (event) {
+                if(recorded){
+                    
+                }
+            }
+        );
 
 });
+
+function repeatRecorded(){
+    if(document.getElementById(video).currentTime >= endRecordingTime){
+        document.getElementById(video).currentTime = startRecordingTime;
+    }
+}
 
 function onBufferedVideoFrame(bufferedTime, length) {
 
@@ -110,6 +129,55 @@ $(function () {
         testing(event.keyCode);
     });
 });
+
+var fired = false;
+$(function () {
+    $(document).keydown(function (event) {
+        if (!fired) {
+            if (event.keyCode == recordKey) {
+                startToRecord(event.keyCode);
+                fired = true;
+            }
+
+        }
+
+    });
+});
+
+$(function () {
+    $(document).keyup(function (event) {
+        if (event.keyCode == recordKey) {
+            endRecording();
+            fired = false;
+
+        }
+
+
+    });
+});
+
+function startToRecord(keycode) {
+    startRecordingTime = document.getElementById("video").currentTime;
+
+    console.log("Started Recording at " + getFormat(startRecordingTime));
+    play();
+    
+
+}
+
+function endRecording() {
+    pause();
+    endRecordingTime = document.getElementById("video").currentTime;
+
+    console.log("Stopped Recording at " + getFormat(endRecordingTime));
+    if(endRecordingTime - startRecordingTime>= 1){
+        recorded = true;
+    }else{
+        startRecordingTime = undefined;
+        endRecordingTime = undefined;
+    }
+
+}
 
 function testing(a) {
     easeVideo(1);
