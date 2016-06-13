@@ -375,7 +375,7 @@ function animateBackgroundColors() {
         })
     } else if (currentIndexUpDown == -2) {
         $(".video-overlay-banner").animate({
-            backgroundColor: "blue"
+            backgroundColor: "#3341FF"
         })
     }
 }
