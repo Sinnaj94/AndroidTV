@@ -36,8 +36,23 @@ body {
     text-align: center;
     top: 60%;
     width: 100%;
+    z-index: 9;
     height: 20%;
     background-color: #00695C
+}
+.video-overlay-hint {
+    box-shadow: 3px 3px 7px rgba(10, 10, 10, .3);
+    position: absolute;
+    text-align: center;
+    z-index: 8;
+    top: 80%;
+    width: 100%;
+    height: 7%;
+    background-color: #f24336;
+}
+.hint-text {
+    transform: translate(0, -20%);
+    font-size: 0.3em;
 }
 
 .icon-wrapper {
@@ -94,6 +109,7 @@ body {
     left:50%;
     transform:translate(-50%,0);
     top:64%;
+    z-index: 999;
     position: absolute
 }
 
@@ -101,6 +117,7 @@ body {
     left:34%;
     transform:translate(-50%,0);
     top:64%;
+    z-index: 999;
     position: absolute
 }
 
@@ -108,19 +125,21 @@ body {
     left:66%;
     transform:translate(-50%,0);
     top:64%;
+    z-index: 999;
     position: absolute
 }
 #recordPanel{
     left:50%;
     transform:translate(-50%,0);
     top:89%;
-
+    z-index: 999;
     position: absolute
 }
 #sharePanel {
     left:50%;
     transform:translate(-55%,0);
     top:114%;
+    z-index: 999;
     position: absolute
 }
 
