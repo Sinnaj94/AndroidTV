@@ -249,6 +249,7 @@ function goUP() {
             , easing: 'swing'
         })
         currentIndexUpDown --;
+        animateBackgroundColors();
         if(currentIndexUpDown < 0){
             hideTitle();
         }
@@ -277,12 +278,29 @@ function goDown() {
             , easing: 'swing'
         })
         currentIndexUpDown ++;
+
+        animateBackgroundColors();
         if(currentIndexUpDown  == 0){
             showTitle();
         }
     }
 }
 
+function animateBackgroundColors(){
+    if(currentIndexUpDown ==  0){
+        $(".video-overlay-banner").animate({
+            backgroundColor: "#00695C"
+        })
+    }else if(currentIndexUpDown ==  -1){
+        $(".video-overlay-banner").animate({
+            backgroundColor: "#f24336"
+        })
+    }else if(currentIndexUpDown ==  -2){
+        $(".video-overlay-banner").animate({
+            backgroundColor: "blue"
+        })
+    }
+}
 function easeCircle(percent) {
 
 }
