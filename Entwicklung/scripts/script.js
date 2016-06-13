@@ -174,6 +174,22 @@ function decideExpansion() {
                 duration: 300
                 , queue: false
             });
+        $("#replayPanel")
+            .animate({
+                opacity: "0"
+
+            }, {
+                duration: 300
+                , queue: false
+            });
+        $("#forwardPanel")
+            .animate({
+                opacity: "0"
+
+            }, {
+                duration: 300
+                , queue: false
+            });
 
     } else if (currentIndexUpDown == -1) {
         if (last == -2) {
@@ -209,6 +225,22 @@ function decideExpansion() {
 
                 });
             $("#passedandlengthtext")
+                .animate({
+                    opacity: "1"
+
+                }, {
+                    duration: 300
+                    , queue: false
+                });
+            $("#replayPanel")
+                .animate({
+                    opacity: "1"
+
+                }, {
+                    duration: 300
+                    , queue: false
+                });
+            $("#forwardPanel")
                 .animate({
                     opacity: "1"
 
