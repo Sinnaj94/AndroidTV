@@ -260,9 +260,10 @@ function goUP() {
         if (currentIndexUpDown == 0) {
             showTitle();
 
-            animateBackgroundColors();
+
 
         }
+        animateBackgroundColors();
     }
 }
 
