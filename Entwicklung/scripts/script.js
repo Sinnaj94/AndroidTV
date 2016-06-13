@@ -170,9 +170,10 @@ function easeIn() {
 
 function goLeft() {
     if (currentIndex > 0) {
+
         $("#Kreis")
             .animate({
-                left: "-=15%"
+                left: "-=16%"
 
             }, {
                 duration: easingSpeed
@@ -188,7 +189,7 @@ function goRight() {
     if (currentIndex < 2) {
         $("#Kreis")
             .animate({
-                left: "+=15%"
+                left: "+=16%"
 
             }, {
                 duration: easingSpeed
