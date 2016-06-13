@@ -1,7 +1,7 @@
 var express = require("express");
 var qrcode = require('express-qrcode');
 var app = express();
-var port = process.env.PORT | 3000
+var port = process.env.PORT || 3000
 
 
 app.use('/', express.static("./Entwicklung"));
