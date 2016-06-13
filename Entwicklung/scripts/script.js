@@ -3,6 +3,9 @@ var currentIndexUpDown;
 var easingSpeed;
 var timer = null;
 var fullLength = 0;
+var hintIsOpen  = false;
+var timeOutForRecordHint  = null;
+var timeOutForShareHint  = null;
 var last = 0;
 $(document).ready(function () {
 
@@ -132,6 +135,75 @@ function testing(a) {
 
     }
     //timedOut();
+}
+
+function showHintRecordDelayed() {
+
+    if(timeOutForRecordHint == null){
+        timeOutForRecordHint = window.setTimeout(function(){
+            timeOutForRecordHint = null;
+            $(".video-overlay-hint") .animate({
+                top: "+=10%"
+
+            }, {
+                duration: easingSpeed
+                , queue: false
+
+            }).then(function(){
+                hintIsOpen = true;
+            });
+        },2000)
+    }
+}
+function hideHintRecord(){
+
+    clearTimeout(timeOutForRecordHint);
+    timeOutForRecordHint = null;
+    $(".video-overlay-hint") .animate({
+        top: "70%"
+
+    }, {
+        duration: easingSpeed
+        , queue: false
+
+    });
+
+
+}
+
+
+function showHintShareDelayed() {
+
+    if(timeOutForShareHint == null){
+        timeOutForShareHint = window.setTimeout(function(){
+            timeOutForShareHint = null;
+            $(".video-overlay-hint-share") .animate({
+                top: "+=10%"
+
+            }, {
+                duration: easingSpeed
+                , queue: false
+
+            }).then(function(){
+                hintIsOpen = true;
+            });
+        },2000)
+    }
+}
+function hideHintShare(){
+
+    clearTimeout(timeOutForShareHint);
+    timeOutForShareHint = null;
+    $(".video-overlay-hint-share") .animate({
+        top: "70%"
+
+    }, {
+        duration: easingSpeed
+        , queue: false
+
+    });
+
+
 }
 
 
@@ -375,10 +447,22 @@ function goUP() {
         currentIndexUpDown++;
         if (currentIndexUpDown == 0) {
             showTitle();
-
-
-
         }
+
+
+        if(currentIndexUpDown == -1 ){
+            showHintRecordDelayed();
+        }else {
+            hideHintRecord();
+        }
+
+        if(currentIndexUpDown == -2 ){
+            showHintShareDelayed();
+        }else {
+            hideHintShare();
+        }
+
+
         animateBackgroundColors();
         decideExpansion();
     }
@@ -409,6 +493,18 @@ function goDown() {
         currentIndexUpDown--;
         if (currentIndexUpDown < 0) {
             hideTitle();
+        }
+
+        if(currentIndexUpDown == -1 ){
+            showHintRecordDelayed();
+        }else {
+            hideHintRecord();
+        }
+
+        if(currentIndexUpDown == -2 ){
+            showHintShareDelayed();
+        }else {
+            hideHintShare();
         }
 
 
