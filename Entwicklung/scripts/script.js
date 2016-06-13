@@ -209,9 +209,20 @@ function hideHintShare(){
 
 function decideExpansion() {
     if (currentIndexUpDown == -2) {
+
+
+        // increase the 500 to larger values to lengthen the duration of the fadeout 
+        // and/or fadein
+        $('#Kreis').fadeOut(100, function () {
+            $('#Kreis').attr("src", "./img/KreisFull.png");
+            $('#Kreis').fadeIn(400);
+        });
+
+
+
         $("#Kreis")
             .animate({
-                top: "10%"
+                top: "6%"
 
             }, {
                 duration: 300
@@ -265,6 +276,10 @@ function decideExpansion() {
 
     } else if (currentIndexUpDown == -1) {
         if (last == -2) {
+            $('#Kreis').fadeOut(100, function () {
+                $('#Kreis').attr("src", "./img/Kreis.png");
+                $('#Kreis').fadeIn(400);
+            });
             $("#Kreis")
                 .animate({
                     top: "0%"
@@ -320,6 +335,7 @@ function decideExpansion() {
                     duration: 300
                     , queue: false
                 });
+
         }
 
     }
