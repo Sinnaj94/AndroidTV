@@ -117,6 +117,12 @@ function testing(a) {
     } else if (a == 39) {
         goRight();
 
+    }else if (a == 38) {
+        goUP();
+
+    }else if (a == 40) {
+        goDown();
+
     } else if (a == 13) {
         onEnter();
     } else if (a == 32) {
@@ -179,7 +185,7 @@ function goLeft() {
                 duration: easingSpeed
                 , easing: 'swing'
             });
-        currentIndex--;;
+        currentIndex--;
     }
 
 }
@@ -199,6 +205,22 @@ function goRight() {
     }
 
 
+
+}
+
+function goUP() {
+    if(currentIndex == 1){
+        $("#centerPanel").animation({
+            top: "+=10%"
+        },{
+            duration: easingSpeed
+            , easing: 'swing'
+        })
+    }
+}
+
+
+function goDown() {
 
 }
 
