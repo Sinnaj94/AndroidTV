@@ -147,13 +147,21 @@ function decideExpansion() {
             });
         $(".video-overlay-banner")
             .animate({
-                top: "-=5%"
-                , height: "+=30%"
+                top: "55%"
+                , height: "50%"
 
             }, {
                 duration: 300
                 , queue: false
 
+            });
+        $("#passedandlengthtext")
+            .animate({
+                opacity: "0"
+
+            }, {
+                duration: 300
+                , queue: false
             });
 
     } else if (currentIndexUpDown == -1) {
@@ -170,13 +178,21 @@ function decideExpansion() {
                 });
             $(".video-overlay-banner")
                 .animate({
-                    top: "+=5%"
-                    , height: "-=30%"
+                    top: "60%"
+                    , height: "20%"
 
                 }, {
                     duration: 300
                     , queue: false
 
+                });
+            $("#passedandlengthtext")
+                .animate({
+                    opacity: "1"
+
+                }, {
+                    duration: 300
+                    , queue: false
                 });
         }
 
