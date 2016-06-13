@@ -137,6 +137,17 @@ function testing(a) {
 
 function decideExpansion() {
     if (currentIndexUpDown == -2) {
+        $("#Kreis")
+            .animate({
+                top: "10%"
+
+            }, {
+                duration: 300
+                , queue: false
+
+            });
+
+
         $("#timeline")
             .animate({
                 opacity: "0"
@@ -166,6 +177,17 @@ function decideExpansion() {
 
     } else if (currentIndexUpDown == -1) {
         if (last == -2) {
+            $("#Kreis")
+                .animate({
+                    top: "0%"
+
+                }, {
+                    duration: 300
+                    , queue: false
+
+                });
+
+
             $("#timeline")
                 .animate({
                     opacity: "1"
