@@ -11,6 +11,7 @@ var recordKey = 80;
 var startRecordingTime = undefined;
 var endRecordingTime = undefined;
 var recorded = false;
+var timerForRecordedEvents;
 $(document).ready(function () {
 
     $(".video-overlay-hint-share").hide()
@@ -49,21 +50,13 @@ $(document).ready(function () {
 
             }
         );
-    $("#video")
-        .on(
-            "timeupdate"
-            , function (event) {
-                if (recorded) {
 
-                }
-            }
-        );
 
 });
 
 function repeatRecorded() {
-    if (document.getElementById(video).currentTime >= endRecordingTime) {
-        document.getElementById(video).currentTime = startRecordingTime;
+    if (document.getElementById("video").currentTime >= endRecordingTime) {
+        document.getElementById("video").currentTime = startRecordingTime;
     }
 }
 
@@ -130,6 +123,7 @@ function getFormat(time) {
 
 $(function () {
     $(document).keydown(function (event) {
+
         testing(event.keyCode);
     });
 });
@@ -139,8 +133,11 @@ $(function () {
     $(document).keydown(function (event) {
         if (!fired) {
             if (event.keyCode == recordKey) {
-                startToRecord(event.keyCode);
-                fired = true;
+                if (currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
+                    startToRecord(event.keyCode);
+                    fired = true;
+                }
+
             }
 
         }
@@ -161,6 +158,8 @@ $(function () {
 });
 
 function startToRecord(keycode) {
+
+    recorded = false;
     startRecordingTime = document.getElementById("video").currentTime;
 
     console.log("Started Recording at " + getFormat(startRecordingTime));
@@ -169,7 +168,9 @@ function startToRecord(keycode) {
 
 }
 
+
 function endRecording() {
+    timerForRecordedEvents = setInterval(repeatVideo, 100);
 
     endRecordingTime = document.getElementById("video").currentTime;
 
@@ -630,9 +631,6 @@ function animateBackgroundColors() {
     }
 }
 
-function easeCircle(percent) {
-
-}
 
 function onEnter() {
     if (currentIndexLeftRight == 0) {
@@ -657,6 +655,7 @@ function playPause() {
 }
 
 function play() {
+
     $("#playPanel").find("i").first().text("pause");
     var video = document.getElementById("video");
     video.play();
@@ -681,6 +680,7 @@ function easeVideo(newopacity, neweasingspeed) {
 }
 
 function pause() {
+    clearInterval(timerForRecordedEvents);
     $("#playPanel").find("i").first().text("play_arrow");
     var video = document.getElementById("video");
     video.pause();
@@ -690,4 +690,12 @@ function pause() {
 function skip(value) {
     var video = document.getElementById("video");
     video.currentTime += value;
+}
+
+function repeatVideo() {
+    console.log("Hallo.");
+
+    if (recorded) {
+        repeatRecorded();
+    }
 }
