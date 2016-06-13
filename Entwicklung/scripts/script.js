@@ -177,6 +177,7 @@ function showHintShareDelayed() {
     if(timeOutForShareHint == null){
         timeOutForShareHint = window.setTimeout(function(){
             timeOutForShareHint = null;
+            $(".video-overlay-hint-share").show();
             $(".video-overlay-hint-share") .animate({
                 top: "+=10%"
 
@@ -201,6 +202,8 @@ function hideHintShare(){
         duration: easingSpeed
         , queue: false
 
+    }).then(function(){
+        $(".video-overlay-hint-share").hide()
     });
 
 
