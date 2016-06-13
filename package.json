@@ -1,0 +1,24 @@
+{
+  "name": "android-tv",
+  "version": "0.0.5",
+  "description": "A simple app to share a spesific moment of your video",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sinnaj94/AndroidTV.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sinnaj94/AndroidTV/issues"
+  },
+  "homepage": "https://github.com/Sinnaj94/AndroidTV#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-qrcode": "^1.0.0"
+  }
+}
