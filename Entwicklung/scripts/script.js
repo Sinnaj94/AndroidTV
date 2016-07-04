@@ -134,7 +134,7 @@ $(function () {
         if (!fired) {
             if (event.keyCode == recordKey) {
                 if (currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
-                    startToRecord(event.keyCode);
+                    startToRecord();
                     fired = true;
                 }
 
@@ -157,7 +157,7 @@ $(function () {
     });
 });
 
-function startToRecord(keycode) {
+function startToRecord() {
 
     recorded = false;
     startRecordingTime = document.getElementById("video").currentTime;
@@ -693,7 +693,7 @@ function skip(value) {
 }
 
 function repeatVideo() {
-    console.log("Hallo.");
+
 
     if (recorded) {
         repeatRecorded();
