@@ -7,7 +7,7 @@ var hintIsOpen = false;
 var timeOutForRecordHint = null;
 var timeOutForShareHint = null;
 var last = 0;
-var recordKey = 80;
+var recordKey = 13;
 var startRecordingTime = undefined;
 var endRecordingTime = undefined;
 var recorded = false;
@@ -147,7 +147,7 @@ $(function () {
 
 $(function () {
     $(document).keyup(function (event) {
-        if (event.keyCode == recordKey) {
+        if (event.keyCode == recordKey && currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
             endRecording();
             fired = false;
 
@@ -181,11 +181,13 @@ function endRecording() {
         startRecordingTime = undefined;
         endRecordingTime = undefined;
     }
+    goDown();
+    easeVideo(1);
 
 }
 
 function testing(a) {
-    if (a != recordKey) {
+    if (true) {
         easeVideo(1);
 
     }
@@ -264,6 +266,12 @@ function showHintShareDelayed() {
 
             });
         }, 2000)
+        $("#QRCode").animate({
+            opacity: 1
+
+        }, 100, function () {
+            // Animation complete.
+        });
     }
 }
 
@@ -281,6 +289,12 @@ function hideHintShare() {
             $(".video-overlay-hint-share").hide()
         }
 
+    });
+    $("#QRCode").animate({
+        opacity: 0
+
+    }, 200, function () {
+        // Animation complete.
     });
 
 
@@ -636,7 +650,7 @@ function onEnter() {
     if (currentIndexLeftRight == 0) {
         animateControls("replay_10");
         skip(-10);
-    } else if (currentIndexLeftRight == 1) {
+    } else if (currentIndexLeftRight == 1 && currentIndexUpDown == 0) {
         playPause();
     } else if (currentIndexLeftRight == 2) {
         animateControls("forward_10");

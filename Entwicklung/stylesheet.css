@@ -229,3 +229,12 @@ body {
     background-color: white;
     opacity: .3;
 }
+
+#QRCode {
+    position: absolute;
+    top: 0%;
+    opacity: 0;
+    height: 80%;
+    margin: 2%;
+    margin-left: 15%;
+}
