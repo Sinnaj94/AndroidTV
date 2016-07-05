@@ -12,7 +12,78 @@ var startRecordingTime = undefined;
 var endRecordingTime = undefined;
 var recorded = false;
 var timerForRecordedEvents;
+
+var holdToRecordPressed = false;
+$(function () {
+
+
+    var $img = $("#recordPanel").find("img").first();
+    var h = $img.height();
+    var sh = h*1.1;
+    var shouldScale = false;
+    function scaleUp($elt)
+    {
+
+        $elt.animate({height: sh}, function ()
+        {
+            if(shouldScale){
+                scaleDown($elt);
+            }
+        });
+    }
+
+    function scaleDown($elt)
+    {
+        $elt.animate({height: h}, function ()
+        {
+            if(shouldScale){
+                scaleUp($elt);
+            }
+        });
+    }
+
+    function startScale() {
+
+        shouldScale = true;
+        scaleUp($img);
+    }
+    function stopScale() {
+        shouldScale = false;
+        scaleDown($img);
+
+    }
+
+    $(document).keydown(function (event) {
+        if (!holdToRecordPressed) {
+            if (event.keyCode == recordKey) {
+                console.log("record down ");
+                if (currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
+                    startToRecord();
+                    startScale();
+                    holdToRecordPressed = true;
+                }
+
+            }
+
+        }
+
+    });
+
+    $(document).keyup(function (event) {
+        if (event.keyCode == recordKey && currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
+            console.log("record up");
+            endRecording();
+            stopScale();
+            holdToRecordPressed = false;
+
+        }
+
+
+    });
+});
+
 $(document).ready(function () {
+
 
     $(".video-overlay-hint-share").hide()
     $("#play_pause_key").text("play_arrow");
@@ -123,39 +194,10 @@ function getFormat(time) {
 
 $(function () {
     $(document).keydown(function (event) {
-
         testing(event.keyCode);
     });
 });
 
-var fired = false;
-$(function () {
-    $(document).keydown(function (event) {
-        if (!fired) {
-            if (event.keyCode == recordKey) {
-                if (currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
-                    startToRecord();
-                    fired = true;
-                }
-
-            }
-
-        }
-
-    });
-});
-
-$(function () {
-    $(document).keyup(function (event) {
-        if (event.keyCode == recordKey && currentIndexLeftRight == 1 && currentIndexUpDown == -1) {
-            endRecording();
-            fired = false;
-
-        }
-
-
-    });
-});
 
 function startToRecord() {
 
@@ -171,7 +213,7 @@ function startToRecord() {
 
 function endRecording() {
     timerForRecordedEvents = setInterval(repeatVideo, 100);
-
+    setPlayArrow();
     endRecordingTime = document.getElementById("video").currentTime;
 
     console.log("Stopped Recording at " + getFormat(endRecordingTime));
@@ -184,10 +226,11 @@ function endRecording() {
     goDown();
     easeVideo(1);
 
+
 }
 
 function testing(a) {
-    if (true) {
+    if (!!holdToRecordPressed || a == recordKey) {
         easeVideo(1);
 
     }
@@ -303,7 +346,7 @@ function hideHintShare() {
 
 function decideExpansion() {
     if (currentIndexUpDown == -2) {
-
+        //Share panel
 
         $("#previewPanel").fadeIn();
 
@@ -640,7 +683,7 @@ function animateBackgroundColors() {
         })
     } else if (currentIndexUpDown == -2) {
         $(".video-overlay-banner").animate({
-            backgroundColor: "#3341FF"
+            backgroundColor: "#5C6BC0"
         })
     }
 }
@@ -661,11 +704,14 @@ function onEnter() {
 
 function playPause() {
     var video = document.getElementById("video");
-    if (video.paused) {
+    clearInterval(timerForRecordedEvents);
+    if($("#playPanel").find("i").first().text() == "play_arrow"){
         play();
-    } else {
+    }else {
         pause();
     }
+
+
 }
 
 function play() {
@@ -694,13 +740,14 @@ function easeVideo(newopacity, neweasingspeed) {
 }
 
 function pause() {
-    clearInterval(timerForRecordedEvents);
-    $("#playPanel").find("i").first().text("play_arrow");
+    setPlayArrow()
     var video = document.getElementById("video");
     video.pause();
 
 }
-
+function setPlayArrow() {
+    $("#playPanel").find("i").first().text("play_arrow");
+}
 function skip(value) {
     var video = document.getElementById("video");
     video.currentTime += value;
