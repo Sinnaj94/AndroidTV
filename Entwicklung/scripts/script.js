@@ -12,6 +12,7 @@ var startRecordingTime = undefined;
 var endRecordingTime = undefined;
 var recorded = false;
 var timerForRecordedEvents;
+var shareScreenOpen = false;
 
 var holdToRecordPressed = false;
 $(function () {
@@ -21,35 +22,13 @@ $(function () {
     var h = $img.height();
     var sh = h*1.1;
     var shouldScale = false;
-    function scaleUp($elt)
-    {
-
-        $elt.animate({height: sh}, function ()
-        {
-            if(shouldScale){
-                scaleDown($elt);
-            }
-        });
-    }
-
-    function scaleDown($elt)
-    {
-        $elt.animate({height: h}, function ()
-        {
-            if(shouldScale){
-                scaleUp($elt);
-            }
-        });
-    }
 
     function startScale() {
 
-        shouldScale = true;
-        scaleUp($img);
+        $img.addClass("animated tada infinite")
     }
     function stopScale() {
-        shouldScale = false;
-        scaleDown($img);
+        $img.removeClass("animated tada infinite")
 
     }
 
@@ -205,7 +184,9 @@ function startToRecord() {
     startRecordingTime = document.getElementById("video").currentTime;
 
     console.log("Started Recording at " + getFormat(startRecordingTime));
-    play();
+    var video = document.getElementById("video");
+    video.play();
+    hideBarForRecordMode();
 
 
 }
@@ -223,13 +204,26 @@ function endRecording() {
         startRecordingTime = undefined;
         endRecordingTime = undefined;
     }
-    goDown();
-    easeVideo(1);
+    showBarForRecordMode();
+    setTimeout(function () {
+        goDown();
+    },800)
 
 
 }
 
 function testing(a) {
+    if( shareScreenOpen && a == 13){
+        $(".share-overlay").animate({
+            opacity: 0
+        });
+        easeVideo(1,500);
+        shareScreenOpen = false;
+        return;     
+    }
+    else if(shareScreenOpen){
+        return;
+    }
     if (!!holdToRecordPressed || a == recordKey) {
         easeVideo(1);
 
@@ -255,21 +249,29 @@ function testing(a) {
     //timedOut();
 }
 
-function showHintRecordDelayed() {
+function showHintRecordDelayed(force) {
 
-    if (timeOutForRecordHint == null) {
+    function showHint() {
+        timeOutForRecordHint = null;
+        $(".video-overlay-hint").animate({
+            top: "+=10%"
+
+        }, {
+            duration: easingSpeed
+            , queue: false
+
+        }, function () {
+            hintIsOpen = true;
+        });
+    }
+    if(!!force){
+        clearTimeout(timeOutForRecordHint);
+        showHint();
+
+    }
+    else if (timeOutForRecordHint == null) {
         timeOutForRecordHint = window.setTimeout(function () {
-            timeOutForRecordHint = null;
-            $(".video-overlay-hint").animate({
-                top: "+=10%"
-
-            }, {
-                duration: easingSpeed
-                , queue: false
-
-            }, function () {
-                hintIsOpen = true;
-            });
+            showHint();
         }, 2000)
     }
 }
@@ -298,7 +300,7 @@ function showHintShareDelayed() {
             timeOutForShareHint = null;
             $(".video-overlay-hint-share").show();
             $(".video-overlay-hint-share").css({
-                top: "100%"
+                top: "75%"
             });
             $(".video-overlay-hint-share").animate({
                 top: "+=5%"
@@ -309,12 +311,7 @@ function showHintShareDelayed() {
 
             });
         }, 2000)
-        $("#QRCode").animate({
-            opacity: 1
-
-        }, 100, function () {
-            // Animation complete.
-        });
+   
     }
 }
 
@@ -333,61 +330,73 @@ function hideHintShare() {
         }
 
     });
-    $("#QRCode").animate({
-        opacity: 0
-
-    }, 200, function () {
-        // Animation complete.
-    });
+    
 
 
 }
 
+function showQRCode() {
+    shareScreenOpen = true;
 
+    $(".share-overlay").animate({
+        opacity: 1
+
+    }, {
+        duration: 300
+        , queue: false
+
+    });
+
+    easeVideo(0,500);
+}
+
+function hideTimeline() {
+    // increase the 500 to larger values to lengthen the duration of the fadeout
+    // and/or fadein
+    $('#Kreis').fadeOut(100, function () {
+        $('#Kreis').attr("src", "./img/KreisFull.png");
+        $('#Kreis').fadeIn(400);
+    });
+    $("#Kreis")
+        .animate({
+            top: "6%"
+
+        }, {
+            duration: 300
+            , queue: false
+
+        });
+    $("#timeline")
+        .animate({
+            opacity: "0"
+
+        }, {
+            duration: 300
+            , queue: false
+        });
+    $(".video-overlay-banner")
+        .animate({
+            top: "60%"
+            , height: "20%"
+
+        }, {
+            duration: 300
+            , queue: false
+
+        });
+
+
+}
 function decideExpansion() {
     if (currentIndexUpDown == -2) {
         //Share panel
 
-        $("#previewPanel").fadeIn();
-
-        // increase the 500 to larger values to lengthen the duration of the fadeout 
-        // and/or fadein
-        $('#Kreis').fadeOut(100, function () {
-            $('#Kreis').attr("src", "./img/KreisFull.png");
-            $('#Kreis').fadeIn(400);
-        });
+        //$("#previewPanel").fadeIn();
 
 
 
-        $("#Kreis")
-            .animate({
-                top: "6%"
-
-            }, {
-                duration: 300
-                , queue: false
-
-            });
 
 
-        $("#timeline")
-            .animate({
-                opacity: "0"
-
-            }, {
-                duration: 300
-                , queue: false
-            });
-        $(".video-overlay-banner")
-            .animate({
-                top: "55%"
-                , height: "50%"
-
-            }, {
-                duration: 300
-                , queue: false
-
-            });
         $("#passedandlengthtext")
             .animate({
                 opacity: "0"
@@ -698,6 +707,9 @@ function onEnter() {
     } else if (currentIndexLeftRight == 2) {
         animateControls("forward_10");
         skip(10);
+    }else if(currentIndexUpDown == -2){
+        //on Share click
+        showQRCode();
     }
 
 }
@@ -738,7 +750,126 @@ function easeVideo(newopacity, neweasingspeed) {
     }
 
 }
+function hideBarForRecordMode(){
+    showHintRecordDelayed(true)
+    $(".video-overlay")
+        .animate({
+                backgroundColor: "rgba(0, 0, 0, 0.0)"
+        }, {
+                duration: 500
+            ,   easing: 'swing'
+        });
 
+    $(".video-overlay-banner").animate({
+        backgroundColor: "rgb(242, 67, 54,0.4);"
+    },
+    {
+        duration: 500
+        ,   easing: 'swing'
+    });
+    $(".video-overlay-hint").animate({
+            backgroundColor: "rgb(242, 67, 54,0.4);"
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+
+    $("#playPanel").animate({
+            opacity: 0
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#forwardPanel").animate({
+            opacity: 0
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#previewPanel").animate({
+            opacity: 0
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#replayPanel").animate({
+            opacity: 0
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#sharePanel").animate({
+            opacity: 0
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+
+
+}
+function showBarForRecordMode(){
+
+    $(".video-overlay")
+        .animate({
+            backgroundColor: "rgba(0, 0, 0, 0.5)"
+        }, {
+            duration: 500
+            ,   easing: 'swing'
+        });
+
+    $(".video-overlay-banner").animate({
+            backgroundColor: "rgb(242, 67, 54,1);"
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        });
+    $(".video-overlay-hint").animate({
+            backgroundColor: "rgb(242, 67, 54,1);"
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+
+    $("#playPanel").animate({
+            opacity: 1
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#forwardPanel").animate({
+            opacity: 1
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#replayPanel").animate({
+            opacity: 1
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+    $("#sharePanel").animate({
+            opacity: 1
+        },
+        {
+            duration: 500
+            ,   easing: 'swing'
+        })
+
+
+}
+window.test = hideBarForRecordMode;
 function pause() {
     setPlayArrow()
     var video = document.getElementById("video");
