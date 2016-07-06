@@ -642,6 +642,7 @@ function goUP() {
         if (currentIndexUpDown == -2) {
             showHintShareDelayed();
         } else {
+            $("#backIcon").text("replay_5");
             hideHintShare();
         }
 
