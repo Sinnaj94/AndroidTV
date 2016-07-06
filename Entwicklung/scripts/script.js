@@ -20,13 +20,14 @@ $(function () {
 
     var $img = $("#recordPanel").find("img").first();
     var h = $img.height();
-    var sh = h*1.1;
+    var sh = h * 1.1;
     var shouldScale = false;
 
     function startScale() {
 
         $img.addClass("animated tada infinite")
     }
+
     function stopScale() {
         $img.removeClass("animated tada infinite")
 
@@ -184,8 +185,7 @@ function startToRecord() {
     startRecordingTime = document.getElementById("video").currentTime;
 
     console.log("Started Recording at " + getFormat(startRecordingTime));
-    var video = document.getElementById("video");
-    video.play();
+    play();
     hideBarForRecordMode();
 
 
@@ -194,7 +194,7 @@ function startToRecord() {
 
 function endRecording() {
     timerForRecordedEvents = setInterval(repeatVideo, 100);
-    setPlayArrow();
+
     endRecordingTime = document.getElementById("video").currentTime;
 
     console.log("Stopped Recording at " + getFormat(endRecordingTime));
@@ -207,24 +207,23 @@ function endRecording() {
     showBarForRecordMode();
     setTimeout(function () {
         goDown();
-    },800)
+    }, 800)
 
 
 }
 
 function testing(a) {
-    if( shareScreenOpen && a == 13){
+    if (shareScreenOpen && a == 13) {
         $(".share-overlay").animate({
             opacity: 0
         });
-        easeVideo(1,500);
+        easeVideo(1, 500);
         shareScreenOpen = false;
-        return;     
-    }
-    else if(shareScreenOpen){
+        return;
+    } else if (shareScreenOpen) {
         return;
     }
-    if (!!holdToRecordPressed || a == recordKey) {
+    if (!holdToRecordPressed || a == recordKey) {
         easeVideo(1);
 
     }
@@ -264,12 +263,11 @@ function showHintRecordDelayed(force) {
             hintIsOpen = true;
         });
     }
-    if(!!force){
+    if (!!force) {
         clearTimeout(timeOutForRecordHint);
         showHint();
 
-    }
-    else if (timeOutForRecordHint == null) {
+    } else if (timeOutForRecordHint == null) {
         timeOutForRecordHint = window.setTimeout(function () {
             showHint();
         }, 2000)
@@ -311,7 +309,7 @@ function showHintShareDelayed() {
 
             });
         }, 2000)
-   
+
     }
 }
 
@@ -330,7 +328,7 @@ function hideHintShare() {
         }
 
     });
-    
+
 
 
 }
@@ -347,7 +345,7 @@ function showQRCode() {
 
     });
 
-    easeVideo(0,500);
+    easeVideo(0, 500);
 }
 
 function hideTimeline() {
@@ -387,6 +385,7 @@ function hideTimeline() {
 
 
 }
+
 function decideExpansion() {
     if (currentIndexUpDown == -2) {
         //Share panel
@@ -407,7 +406,7 @@ function decideExpansion() {
             });
         $("#replayPanel")
             .animate({
-                opacity: "0"
+                //opacity: "0"
 
             }, {
                 duration: 300
@@ -415,12 +414,16 @@ function decideExpansion() {
             });
         $("#forwardPanel")
             .animate({
-                opacity: "0"
+                //opacity: "0"
 
             }, {
                 duration: 300
                 , queue: false
             });
+        if (recorded) {
+            $("#forwardIcon").text("delete");
+            $("#backIcon").text("visibility");
+        }
 
     } else if (currentIndexUpDown == -1) {
         if (last == -2) {
@@ -486,6 +489,8 @@ function decideExpansion() {
                     duration: 300
                     , queue: false
                 });
+            $("#forwardIcon").text("forward_5");
+
 
         }
 
@@ -536,7 +541,7 @@ function easeIn() {
 }
 
 function goLeft() {
-    if (currentIndexLeftRight > 0) {
+    if (currentIndexLeftRight > 0 && currentIndexUpDown >= -2) {
 
         $("#Kreis")
             .animate({
@@ -547,6 +552,18 @@ function goLeft() {
                 , easing: 'swing'
             });
         currentIndexLeftRight--;
+        console.log(currentIndexLeftRight);
+        if(currentIndexLeftRight == 0 && currentIndexUpDown == -2){
+            
+            $(".video-overlay")
+            .animate({
+                opacity: 0
+
+            }, {
+                duration: easingSpeed
+                , easing: 'swing'
+            });
+        }
     }
 
 }
@@ -590,7 +607,6 @@ function showTitle() {
 }
 
 function goUP() {
-
     if (currentIndexLeftRight == 1 && currentIndexUpDown < 0) {
         $("#playPanel").animate({
             top: "+=" + percentDown + "%"
@@ -637,48 +653,55 @@ function goUP() {
 
 
 function goDown() {
-    if (currentIndexLeftRight == 1 && currentIndexUpDown > -2) {
-        $("#playPanel").animate({
-            top: "-=" + percentDown + "%"
-        }, {
-            duration: easingSpeed
-            , easing: 'swing'
-        })
-        $("#recordPanel").animate({
-            top: "-=" + percentDown + "%"
-        }, {
-            duration: easingSpeed
-            , easing: 'swing'
-        })
-        $("#sharePanel").animate({
-            top: "-=" + percentDown + "%"
-        }, {
-            duration: easingSpeed
-            , easing: 'swing'
-        })
-
-        currentIndexUpDown--;
-        if (currentIndexUpDown < 0) {
-            hideTitle();
-        }
-
-        if (currentIndexUpDown == -1) {
-            showHintRecordDelayed();
-        } else {
-            hideHintRecord();
-        }
-
-        if (currentIndexUpDown == -2) {
-            showHintShareDelayed();
-        } else {
-            hideHintShare();
-        }
-
-
-        animateBackgroundColors();
-        decideExpansion();
-
+    if (currentIndexLeftRight == 1 && currentIndexUpDown > -1) {
+        performDown();
+    } else if (currentIndexUpDown == -1 && currentIndexLeftRight == 1 && recorded == true) {
+        performDown();
     }
+}
+
+function performDown() {
+
+    $("#playPanel").animate({
+        top: "-=" + percentDown + "%"
+    }, {
+        duration: easingSpeed
+        , easing: 'swing'
+    })
+    $("#recordPanel").animate({
+        top: "-=" + percentDown + "%"
+    }, {
+        duration: easingSpeed
+        , easing: 'swing'
+    })
+    $("#sharePanel").animate({
+        top: "-=" + percentDown + "%"
+    }, {
+        duration: easingSpeed
+        , easing: 'swing'
+    })
+
+    currentIndexUpDown--;
+    if (currentIndexUpDown < 0) {
+        hideTitle();
+    }
+
+    if (currentIndexUpDown == -1) {
+        showHintRecordDelayed();
+    } else {
+        hideHintRecord();
+    }
+
+    if (currentIndexUpDown == -2) {
+        showHintShareDelayed();
+    } else {
+        hideHintShare();
+    }
+
+
+    animateBackgroundColors();
+    decideExpansion();
+
 }
 
 function animateBackgroundColors() {
@@ -700,14 +723,26 @@ function animateBackgroundColors() {
 
 function onEnter() {
     if (currentIndexLeftRight == 0) {
-        animateControls("replay_10");
-        skip(-10);
+        animateControls("replay_5");
+        skip(-5);
     } else if (currentIndexLeftRight == 1 && currentIndexUpDown == 0) {
         playPause();
     } else if (currentIndexLeftRight == 2) {
-        animateControls("forward_10");
-        skip(10);
-    }else if(currentIndexUpDown == -2){
+        if (currentIndexUpDown == -2) {
+            recorded = false;
+            startRecordingTime = undefined;
+            endRecordingTime = undefined;
+            animateControls("delete");
+            goLeft();
+            goUP();
+            
+
+        } else {
+            animateControls("forward_5");
+            skip(5);
+
+        }
+    } else if (currentIndexUpDown == -2) {
         //on Share click
         showQRCode();
     }
@@ -717,9 +752,10 @@ function onEnter() {
 function playPause() {
     var video = document.getElementById("video");
     clearInterval(timerForRecordedEvents);
-    if($("#playPanel").find("i").first().text() == "play_arrow"){
+    if ($("#playPanel").find("i").first().text() == "play_arrow") {
         play();
-    }else {
+        easeVideo(0, 300);
+    } else {
         pause();
     }
 
@@ -731,7 +767,6 @@ function play() {
     $("#playPanel").find("i").first().text("pause");
     var video = document.getElementById("video");
     video.play();
-    easeVideo(0, 300);
 }
 
 function easeVideo(newopacity, neweasingspeed) {
@@ -750,135 +785,127 @@ function easeVideo(newopacity, neweasingspeed) {
     }
 
 }
-function hideBarForRecordMode(){
+
+function hideBarForRecordMode() {
     showHintRecordDelayed(true)
     $(".video-overlay")
         .animate({
-                backgroundColor: "rgba(0, 0, 0, 0.0)"
+            backgroundColor: "rgba(0, 0, 0, 0.0)"
         }, {
-                duration: 500
-            ,   easing: 'swing'
+            duration: 500
+            , easing: 'swing'
         });
 
     $(".video-overlay-banner").animate({
         backgroundColor: "rgb(242, 67, 54,0.4);"
-    },
-    {
+    }, {
         duration: 500
-        ,   easing: 'swing'
+        , easing: 'swing'
     });
     $(".video-overlay-hint").animate({
-            backgroundColor: "rgb(242, 67, 54,0.4);"
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        backgroundColor: "rgb(242, 67, 54,0.4);"
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
 
     $("#playPanel").animate({
-            opacity: 0
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 0
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#forwardPanel").animate({
-            opacity: 0
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 0
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#previewPanel").animate({
-            opacity: 0
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 0
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#replayPanel").animate({
-            opacity: 0
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 0
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#sharePanel").animate({
-            opacity: 0
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 0
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
 
 
 }
-function showBarForRecordMode(){
+
+function showBarForRecordMode() {
 
     $(".video-overlay")
         .animate({
             backgroundColor: "rgba(0, 0, 0, 0.5)"
         }, {
             duration: 500
-            ,   easing: 'swing'
+            , easing: 'swing'
         });
 
     $(".video-overlay-banner").animate({
-            backgroundColor: "rgb(242, 67, 54,1);"
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        });
+        backgroundColor: "rgb(242, 67, 54,1);"
+    }, {
+        duration: 500
+        , easing: 'swing'
+    });
     $(".video-overlay-hint").animate({
-            backgroundColor: "rgb(242, 67, 54,1);"
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        backgroundColor: "rgb(242, 67, 54,1);"
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
 
     $("#playPanel").animate({
-            opacity: 1
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 1
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#forwardPanel").animate({
-            opacity: 1
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 1
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#replayPanel").animate({
-            opacity: 1
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 1
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
     $("#sharePanel").animate({
-            opacity: 1
-        },
-        {
-            duration: 500
-            ,   easing: 'swing'
-        })
+        opacity: 1
+    }, {
+        duration: 500
+        , easing: 'swing'
+    })
 
 
 }
 window.test = hideBarForRecordMode;
+
 function pause() {
     setPlayArrow()
     var video = document.getElementById("video");
     video.pause();
 
 }
+
 function setPlayArrow() {
     $("#playPanel").find("i").first().text("play_arrow");
 }
+
 function skip(value) {
     var video = document.getElementById("video");
     video.currentTime += value;

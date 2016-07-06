@@ -36,7 +36,8 @@ body {
     top:0;
     width: 100%;
     height: 100%;
-    background-color: #5C6BC0;
+    background-color: rgba(92,107,192,0.5);
+    
 }
 
 .share-overlay h1{
@@ -69,7 +70,7 @@ body {
 }
 .share-overlay .qr-code{
     position: absolute;
-    left:50%;
+    left:29%;
     transform:translate(-50%,-50%);
     top:50%;
 }
@@ -271,4 +272,8 @@ body {
     position: absolute;
     background-color: white;
     opacity: .3;
+}
+
+#deleteIcon{
+    
 }
