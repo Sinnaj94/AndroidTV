@@ -17,6 +17,7 @@ var shareScreenOpen = false;
 var holdToRecordPressed = false;
 $(function () {
 
+    $("#previewPanel").hide(); 
     var urlStartTime = $.url().param("start");
     var urlEndTime = $.url().param("ziel");
     if(!!urlStartTime || !!urlEndTime){
