@@ -270,7 +270,7 @@ function showHintRecordDelayed(force) {
     function showHint() {
         timeOutForRecordHint = null;
         $(".video-overlay-hint").animate({
-            top: "80    %"
+            top: "80%"
 
         }, {
             duration: easingSpeed
