@@ -17,7 +17,7 @@ var shareScreenOpen = false;
 var holdToRecordPressed = false;
 $(function () {
 
-    $("#previewPanel").hide(); 
+    $("#previewPanel").hide();
     var urlStartTime = $.url().param("start");
     var urlEndTime = $.url().param("ziel");
     if(!!urlStartTime || !!urlEndTime){
@@ -270,7 +270,7 @@ function showHintRecordDelayed(force) {
     function showHint() {
         timeOutForRecordHint = null;
         $(".video-overlay-hint").animate({
-            top: "+=10%"
+            top: "80%"
 
         }, {
             duration: easingSpeed
