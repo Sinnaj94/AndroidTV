@@ -17,6 +17,17 @@ var shareScreenOpen = false;
 var holdToRecordPressed = false;
 $(function () {
 
+    var urlStartTime = $.url().param("start");
+    var urlEndTime = $.url().param("ziel");
+    if(!!urlStartTime || !!urlEndTime){
+        startRecordingTime = urlStartTime;
+        endRecordingTime = urlEndTime;
+        document.getElementById("video").currentTime = startRecordingTime;
+        recorded = true;
+        timerForRecordedEvents = setInterval(repeatVideo, 5);
+        repeatRecorded();
+        play();
+    }
 
     var $img = $("#recordPanel").find("img").first();
     var h = $img.height();
@@ -193,9 +204,14 @@ function startToRecord() {
 
 
 function endRecording() {
-    timerForRecordedEvents = setInterval(repeatVideo, 100);
+    if(!!timerForRecordedEvents){
+        clearInterval(timerForRecordedEvents);
+    }
+    timerForRecordedEvents = setInterval(repeatVideo, 5);
 
     endRecordingTime = document.getElementById("video").currentTime;
+
+    history.pushState('', 'New Page Title', document.location.pathname + "?start=" + startRecordingTime + "&ziel=" + endRecordingTime);
 
     console.log("Stopped Recording at " + getFormat(endRecordingTime));
     if (endRecordingTime - startRecordingTime >= 1) {
@@ -334,6 +350,18 @@ function hideHintShare() {
 }
 
 function showQRCode() {
+    var $imgQrCode = $("#QRCode");
+
+    var path = ""
+
+    var pathArr = document.location.pathname.split("/");
+    if(pathArr.length >= 1 ){
+        pathArr = pathArr.reverse();
+        pathArr.pop();
+        pathArr = pathArr.reverse();
+
+    }
+    $imgQrCode.attr("src", "/" + pathArr.join("/")+ "share/code?start="+startRecordingTime+"&ziel="+endRecordingTime+"/")
     shareScreenOpen = true;
 
     $(".share-overlay").animate({

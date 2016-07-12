@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Sinnaj94/AndroidTV#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "express-qrcode": "^1.0.0"
+    "express-qrcode": "^1.0.0",
+    "qr-image": "^3.1.0"
   }
 }
