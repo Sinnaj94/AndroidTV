@@ -12,7 +12,7 @@ app.get('/share/code', function(req, res) {
   var video= req.param("video");
   var start= req.param("start");
   var ziel = req.param("ziel");
-  var fullUrl = req.get('Host') + "?start" + start + "&ziel=" + ziel;
+  var fullUrl = req.get('Host') + "?start=" + start + "&ziel=" + ziel;
   var code = qr.image(fullUrl, { type: 'svg' });
   res.type('svg');
   code.pipe(res);
