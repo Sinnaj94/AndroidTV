@@ -13,7 +13,7 @@ npm run start
 
 ##Live-Demo 
 
-You can give it a try at our current live version: [http://share-your-moment.herokuapp.com](Share-Your-Moment)
+You can give it a try at our current live version: [Share-Your-Moment](http://share-your-moment.herokuapp.com)
 
 ##Design-Process 
 
@@ -22,7 +22,11 @@ You can give it a try at our current live version: [http://share-your-moment.her
 ![Paper-Prototype-Gif](./docs/gifs/prototype.gif)
 
 ###Wireframes 
-![Wireframe](./docs/gifs/prototype.gif)
+![Wireframe](./docs/gifs/wireframes.gif)
 
-###Live-Version 
+###Live-Video
+[![Wireframe](./docs/video-thumbnail.png)](https://www.youtube.com/watch?v=t33bzrQ8KjM&feature=youtu.be)
+  
+
+
 
