@@ -10,10 +10,17 @@ npm install
 npm run start 
 
 ```
+##Keys 
+
+* Use the **Enter** key access all actions. 
+* To stop the video you can also use the **spacebar** 
 
 ##Live-Demo 
 
+**Important: This app is optimized for a TV-Screen with a width of 1080p**
+
 You can give it a try at our current live version: [Share-Your-Moment](http://share-your-moment.herokuapp.com)
+
 
 Here are some example moments: 
 
