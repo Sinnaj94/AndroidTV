@@ -1,8 +1,8 @@
-#Share-Your-Monment 
+# Share-Your-Monment 
 
 The  "share-your-moment" concept is about sharing little moments of your favorite movies. 
 
-##Getting started 
+## Getting started 
 
 ```
 
@@ -10,12 +10,12 @@ npm install
 npm run start 
 
 ```
-##Keys 
+## Keys 
 
 * Use the **Enter** key access all actions. 
 * To stop the video you can also use the **spacebar** 
 
-##Live-Demo 
+## Live-Demo 
 
 **Important: This app is optimized for a TV-Screen with a width of 1080p**
 
@@ -30,16 +30,16 @@ Here are some example moments:
 
 
 
-##Design-Process 
+## Design-Process 
 
-###Paper-Prototype 
+### Paper-Prototype 
 
 ![Paper-Prototype-Gif](./docs/gifs/prototype.gif)
 
-###Wireframes 
+### Wireframes 
 ![Wireframe](./docs/gifs/wireframes.gif)
 
-###Live-Video
+### Live-Video
 [![Wireframe](./docs/video-thumbnail.png)](https://www.youtube.com/watch?v=t33bzrQ8KjM&feature=youtu.be)
   
 
